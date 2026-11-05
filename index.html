@@ -53,7 +53,7 @@
                 </div>
                 <div>
                     <span class="text-lg font-black tracking-tight text-white">AI WorkHub</span>
-                    <span class="hidden md:inline-block text-[10px] text-sky-400 font-mono ml-2 uppercase px-1.5 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">Live Database</span>
+                    <span class="hidden md:inline-block text-[10px] text-sky-400 font-mono ml-2 uppercase px-1.5 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">2026 Directory</span>
                 </div>
             </div>
             
@@ -98,12 +98,11 @@
             </div>
         </section>
 
-        <!-- Сетка карточек нейросетей -->
+        <!-- Сетка карточек -->
         <section class="max-w-6xl mx-auto px-4 pb-20">
             <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Карточки рендерятся динамически из Supabase -->
                 <div class="col-span-full text-center py-12 text-slate-500 text-sm animate-pulse">
-                    Загрузка каталога из базы данных...
+                    Загрузка каталога из Supabase...
                 </div>
             </div>
         </section>
@@ -126,7 +125,7 @@
 
     <!-- Footer -->
     <footer class="border-t border-white/5 py-8 text-center text-xs text-slate-600">
-        <p>© 2026 AI WorkHub. Данные синхронизированы с Supabase.</p>
+        <p>© 2026 AI WorkHub. Данные синхронизированы с базой данных Supabase.</p>
     </footer>
 
     <!-- Модальное окно добавления сервиса -->
@@ -134,7 +133,7 @@
         <div class="glass-card w-full max-w-md rounded-2xl p-6 border border-slate-800 relative">
             <button onclick="toggleModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
             <h3 class="text-lg font-bold text-white mb-1">Предложить AI-инструмент</h3>
-            <p class="text-slate-400 text-xs mb-4">После модерации сервис появится в общем каталоге.</p>
+            <p class="text-slate-400 text-xs mb-4">После модерации сервис будет добавлен в каталог.</p>
             
             <form id="addToolForm" onsubmit="handleSubmit(event)" class="space-y-3">
                 <div>
@@ -156,31 +155,31 @@
                     <input id="formUrl" required type="url" placeholder="https://..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
                 </div>
                 <div>
-                    <label class="block text-xs text-slate-300 mb-1">Краткое описание функционала</label>
+                    <label class="block text-xs text-slate-300 mb-1">Краткое описание</label>
                     <textarea id="formDesc" required rows="2" placeholder="Для чего этот сервис и как он помогает в работе?" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500"></textarea>
                 </div>
-                <button type="submit" id="submitBtn" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition disabled:opacity-50">
+                <button type="submit" id="submitBtn" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition">
                     Отправить на модерацию
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Интеграция с Supabase -->
+    <!-- Полная логика работы с вашей базой Supabase -->
     <script>
-        // ВСТАВЬТЕ СЮДА ВАШ URL ИЗ SUPABASE:
-        const SUPABASE_URL = "https://ВАШ_ПРОЕКТ.supabase.co";
-        // Ваш ключ из запроса:
+        // Ваши реальные параметры проекта (всё уже вставлено):
+        const SUPABASE_URL = "https://jncyvopdxarwtqtnmfwh.supabase.co";
         const SUPABASE_KEY = "sb_publishable_YHsJtW3rAEN3QTXaW7lxDA_5TS47IFr";
 
-        // Инициализация клиента Supabase
+        // Инициализация подключения
         const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let allTools = [];
         let currentCategory = 'all';
 
-        // 1. Загрузка инструментов из базы данных
+        // 1. Загрузка данных из вашей таблицы tools
         async function fetchTools() {
+            const grid = document.getElementById('toolsGrid');
             try {
                 const { data, error } = await db
                     .from('tools')
@@ -192,20 +191,22 @@
                 allTools = data || [];
                 renderTools(allTools);
             } catch (err) {
-                console.error('Ошибка загрузки данных:', err);
-                document.getElementById('toolsGrid').innerHTML = `
-                    <div class="col-span-full text-center py-10 text-red-400 text-xs">
-                        Не удалось загрузить сервисы. Проверьте SUPABASE_URL и статус проекта.
+                console.error('Ошибка Supabase:', err);
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-10 bg-red-500/10 border border-red-500/20 rounded-2xl p-6">
+                        <p class="text-red-400 font-bold mb-1">Ошибка связи с базой данных</p>
+                        <p class="text-[12px] font-mono text-slate-300 bg-black/40 p-2 rounded max-w-lg mx-auto mb-2">${err.message || err}</p>
+                        <p class="text-[11px] text-slate-400">Убедитесь, что вы запустили SQL-скрипт создания таблицы в панели Supabase.</p>
                     </div>
                 `;
             }
         }
 
-        // 2. Отрисовка карточек
+        // 2. Отрисовка полученных карточек
         function renderTools(tools) {
             const container = document.getElementById('toolsGrid');
             if (tools.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500 text-xs">Инструментов не найдено</div>`;
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500 text-xs">Инструментов не найдено.</div>`;
                 return;
             }
 
@@ -253,7 +254,7 @@
             }).join('');
         }
 
-        // 3. Фильтрация и поиск
+        // 3. Живой поиск и фильтрация по кнопкам
         function applyFilters() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
 
@@ -281,7 +282,7 @@
             applyFilters();
         }
 
-        // 4. Отправка новой заявки в базу Supabase
+        // 4. Отправка формы напрямую в Supabase
         async function handleSubmit(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
@@ -293,7 +294,7 @@
                 category: document.getElementById('formCategory').value,
                 url: document.getElementById('formUrl').value,
                 description: document.getElementById('formDesc').value,
-                is_approved: false // ожидает одобрения в Supabase Dashboard
+                is_approved: false
             };
 
             const { error } = await db.from('tools').insert([payload]);
@@ -302,9 +303,9 @@
             btn.innerText = 'Отправить на модерацию';
 
             if (error) {
-                alert('Ошибка при сохранении: ' + error.message);
+                alert('Ошибка: ' + error.message);
             } else {
-                alert('Спасибо! Инструмент отправлен на модерацию.');
+                alert('Заявка успешно отправлена! Сервис появится в каталоге после проверки.');
                 document.getElementById('addToolForm').reset();
                 toggleModal();
             }
@@ -314,7 +315,7 @@
             document.getElementById('modal').classList.toggle('hidden');
         }
 
-        // Старт загрузки при загрузке документа
+        // Запуск при открытии страницы
         window.addEventListener('DOMContentLoaded', fetchTools);
     </script>
 </body>
