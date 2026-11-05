@@ -156,38 +156,50 @@
         </div>
     </div>
 
+
     <!-- Логика работы с Supabase и интерфейсом -->
     <script>
-        // Инициализация Supabase клиента
+        // Официальная инициализация Supabase для CDN
         const SUPABASE_URL = 'https://jncyvopdxarwtqtnmfwh.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_YHsJtW3rAEN3QTXaW7lxDA_5TS47IFr';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
+        // Исправлено: используем глобальный объект supabase напрямую
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let allTools = [];
         let currentCategory = 'all';
 
         // Загрузка данных при открытии страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchTools();
+        });
+
+        // Загрузка данных из базы
         async function fetchTools() {
-            const { data, error } = await supabase
-                .from('tools')
-                .select('*')
-                .eq('is_approved', true)
-                .order('is_featured', { ascending: false });
+            const grid = document.getElementById('toolsGrid');
 
-            if (error) {
-                console.error('Ошибка загрузки:', error);
-                document.getElementById('toolsGrid').innerHTML = `<div class="col-span-full text-center text-red-400 text-xs">Ошибка загрузки базы данных. Проверьте ключи.</div>`;
-                return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('tools')
+                    .select('*')
+                    .eq('is_approved', true)
+                    .order('is_featured', { ascending: false });
+
+                if (error) throw error;
+
+                allTools = data || [];
+                renderTools(allTools);
+            } catch (err) {
+                console.error('Ошибка загрузки:', err);
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-red-400 text-xs">Ошибка загрузки базы данных: ${err.message}</div>`;
             }
-
-            allTools = data || [];
-            renderTools(allTools);
         }
 
         // Отрисовка карточек
         function renderTools(tools) {
             const grid = document.getElementById('toolsGrid');
-            if (tools.length === 0) {
+            if (!tools || tools.length === 0) {
                 grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500 text-sm">Инструменты не найдены.</div>`;
                 return;
             }
@@ -195,14 +207,15 @@
             grid.innerHTML = tools.map(tool => {
                 const tagsHtml = tool.tags ? tool.tags.map(t => `<span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">${t}</span>`).join('') : '';
                 const featuredBadge = tool.is_featured ? `<span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">ТОП ВЫБОР</span>` : '';
+                const initial = tool.title ? tool.title.charAt(0) : 'AI';
                 
                 return `
-                    <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="${tool.category || 'other'}" data-title="${tool.title.toLowerCase()} ${(tool.description || '').toLowerCase()}">
+                    <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="${tool.category || 'other'}" data-title="${(tool.title || '').toLowerCase()} ${(tool.description || '').toLowerCase()}">
                         <div>
                             <div class="flex items-start justify-between gap-3 mb-3">
                                 <div class="flex items-center gap-3">
                                     <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center text-xl font-bold text-white shadow-md">
-                                        ${tool.title.charAt(0)}
+                                        ${initial}
                                     </div>
                                     <div>
                                         <h3 class="font-bold text-base text-white flex items-center gap-2">
@@ -238,23 +251,26 @@
             const url = document.getElementById('toolUrl').value;
             const description = document.getElementById('toolDesc').value;
 
-            const { error } = await supabase
-                .from('tools')
-                .insert([{ 
-                    title: title, 
-                    url: url, 
-                    description: description, 
-                    category: 'other', 
-                    price_info: 'По запросу',
-                    is_approved: false // Требует подтверждения в админке Supabase
-                }]);
+            try {
+                const { error } = await supabaseClient
+                    .from('tools')
+                    .insert([{ 
+                        title: title, 
+                        url: url, 
+                        description: description, 
+                        category: 'other', 
+                        price_info: 'По запросу',
+                        is_approved: false 
+                    }]);
 
-            if (error) {
-                alert('Ошибка отправки: ' + error.message);
-            } else {
+                if (error) throw error;
+
                 alert('Спасибо! Ваша заявка отправлена на модерацию.');
                 toggleModal();
                 e.target.reset();
+                fetchTools(); // Обновляем список (если разрешено автором)
+            } catch (err) {
+                alert('Ошибка отправки: ' + err.message);
             }
         }
 
@@ -279,16 +295,13 @@
         function filterTools() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = allTools.filter(tool => {
-                const text = `${tool.title} ${tool.description} ${(tool.tags || []).join(' ')}`.toLowerCase();
+                const text = `${tool.title || ''} ${tool.description || ''} ${(tool.tags || []).join(' ')}`.toLowerCase();
                 const matchesSearch = text.includes(query);
                 const matchesCat = currentCategory === 'all' || tool.category === currentCategory;
                 return matchesSearch && matchesCat;
             });
             renderTools(filtered);
         }
-
-        // Запускаем загрузку при открытии страницы
-        fetchTools();
     </script>
 </body>
 </html>
