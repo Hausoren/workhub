@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI WorkHub — Каталог лучших нейросетей для работы и бизнеса</title>
-    <!-- Tailwind CSS CDN для стилизации без сборщиков -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -16,11 +18,6 @@
                             bg: '#090d16',
                             card: '#111827',
                             border: 'rgba(255, 255, 255, 0.08)'
-                        },
-                        neon: {
-                            blue: '#38bdf8',
-                            emerald: '#10b981',
-                            purple: '#a855f7'
                         }
                     }
                 }
@@ -50,13 +47,13 @@
     <!-- Header -->
     <header class="sticky top-0 z-40 bg-[#090d16]/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3 cursor-pointer">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="location.reload()">
                 <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-400 to-indigo-600 flex items-center justify-center font-black text-white shadow-lg shadow-sky-500/20">
                     ⚡
                 </div>
                 <div>
                     <span class="text-lg font-black tracking-tight text-white">AI WorkHub</span>
-                    <span class="hidden md:inline-block text-[10px] text-sky-400 font-mono ml-2 uppercase px-1.5 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">2026 Directory</span>
+                    <span class="hidden md:inline-block text-[10px] text-sky-400 font-mono ml-2 uppercase px-1.5 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">Live Database</span>
                 </div>
             </div>
             
@@ -86,7 +83,7 @@
             <!-- Поиск -->
             <div class="max-w-xl mx-auto relative mb-6">
                 <span class="absolute left-4 top-3.5 text-slate-500">🔍</span>
-                <input type="text" id="searchInput" oninput="filterTools()" placeholder="Поиск по названию или задаче (голос, код, презентация...)" 
+                <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Поиск по названию или задаче (голос, код, презентация...)" 
                        class="w-full h-12 bg-slate-900/90 rounded-2xl pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 border border-white/10 shadow-xl transition">
             </div>
 
@@ -104,170 +101,14 @@
         <!-- Сетка карточек нейросетей -->
         <section class="max-w-6xl mx-auto px-4 pb-20">
             <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <!-- Карточка 1: ElevenLabs -->
-                <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="voice" data-title="ElevenLabs озвучка клонирование голоса аудио">
-                    <div>
-                        <div class="flex items-start justify-between gap-3 mb-3">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-xl font-bold text-white shadow-md">
-                                    11
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-base text-white flex items-center gap-2">
-                                        ElevenLabs
-                                        <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">ТОП ВЫБОР</span>
-                                    </h3>
-                                    <p class="text-slate-400 text-xs">Генерация голоса и дубляж</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
-                            Самый реалистичный ИИ-голос в мире. Умеет клонировать голос по 1 минуте аудиозаписи, озвучивать видео на 30 языках с сохранением тембра и эмоций.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Клонирование</span>
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Дубляж видео</span>
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Русский язык</span>
-                        </div>
-                    </div>
-                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-xs font-semibold text-emerald-400">Бесплатно / от $5</span>
-                        <!-- Сюда вставляется ваша партнерская ссылка -->
-                        <a href="https://elevenlabs.io" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
-                            Попробовать →
-                        </a>
-                    </div>
+                <!-- Карточки рендерятся динамически из Supabase -->
+                <div class="col-span-full text-center py-12 text-slate-500 text-sm animate-pulse">
+                    Загрузка каталога из базы данных...
                 </div>
-
-                <!-- Карточка 2: Gamma App -->
-                <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="docs" data-title="Gamma App презентации слайды документы">
-                    <div>
-                        <div class="flex items-start justify-between gap-3 mb-3">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-xl font-bold text-white shadow-md">
-                                    Г
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-base text-white">Gamma App</h3>
-                                    <p class="text-slate-400 text-xs">Генератор презентаций</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
-                            Создает готовую интерактивную презентацию со структурой, текстами и картинками за 30 секунд по простому запросу или готовому документу.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">PowerPoint замена</span>
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Слайды</span>
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Экспорт в PDF</span>
-                        </div>
-                    </div>
-                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-xs font-semibold text-emerald-400">Бесплатный тариф</span>
-                        <a href="https://gamma.app" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
-                            Попробовать →
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Карточка 3: Leonardo.ai -->
-                <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="design" data-title="Leonardo ai визуал картинки графика фото маркетплейсы">
-                    <div>
-                        <div class="flex items-start justify-between gap-3 mb-3">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-fuchsia-500 to-cyan-500 flex items-center justify-center text-xl font-bold text-white shadow-md">
-                                    L
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-base text-white">Leonardo.ai</h3>
-                                    <p class="text-slate-400 text-xs">Генератор изображений и артов</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
-                            Главный конкурент Midjourney с удобным веб-интерфейсом. Отлично подходит для создания товарных карточек, иконок сайтов и фотосессий без фотографа.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">150 токенов/день</span>
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Веб-панель</span>
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Upscale 4K</span>
-                        </div>
-                    </div>
-                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-xs font-semibold text-emerald-400">Бесплатно 150/день</span>
-                        <a href="https://leonardo.ai" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
-                            Попробовать →
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Карточка 4: Cursor AI -->
-                <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="code" data-title="Cursor ai программирование код разработка сайты">
-                    <div>
-                        <div class="flex items-start justify-between gap-3 mb-3">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-xl font-bold text-white shadow-md border border-slate-600">
-                                    &gt;_
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-base text-white">Cursor AI</h3>
-                                    <p class="text-slate-400 text-xs">Умный редактор кода</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
-                            Форк VS Code со встроенным пониманием всего проекта. Сам находит баги, дописывает код по нажатию Tab и создает веб-приложения по текстовому описанию.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Автокод</span>
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Поддержка Claude 3.5</span>
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Бесплатный план</span>
-                        </div>
-                    </div>
-                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-xs font-semibold text-emerald-400">Бесплатный триал</span>
-                        <a href="https://cursor.com" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
-                            Попробовать →
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Карточка 5: Perplexity AI -->
-                <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="search" data-title="Perplexity ai поиск аналитика статьи ссылки факты">
-                    <div>
-                        <div class="flex items-start justify-between gap-3 mb-3">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-700 flex items-center justify-center text-xl font-bold text-white shadow-md">
-                                    ✳
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-base text-white">Perplexity AI</h3>
-                                    <p class="text-slate-400 text-xs">Поисковик нового поколения</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
-                            Замена Google для фактчекинга и исследований. Отвечает развернутым ответом с точными ссылками на первоисточники без рекламного мусора.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5 mb-4">
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">С первоисточниками</span>
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Без рекламы</span>
-                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Актуально 2026</span>
-                        </div>
-                    </div>
-                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-xs font-semibold text-emerald-400">Бесплатно без лимита</span>
-                        <a href="https://perplexity.ai" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
-                            Попробовать →
-                        </a>
-                    </div>
-                </div>
-
             </div>
         </section>
 
-        <!-- Блок монетизации: Платное размещение для авторов инструментов -->
+        <!-- Блок монетизации -->
         <section class="max-w-4xl mx-auto px-4 pb-20">
             <div class="glass-card border border-sky-500/20 rounded-3xl p-8 text-center relative overflow-hidden">
                 <div class="w-40 h-40 bg-sky-500/10 rounded-full blur-2xl absolute -top-10 -left-10 pointer-events-none"></div>
@@ -285,7 +126,7 @@
 
     <!-- Footer -->
     <footer class="border-t border-white/5 py-8 text-center text-xs text-slate-600">
-        <p>© 2026 AI WorkHub. База знаний и каталог проверенных инструментов.</p>
+        <p>© 2026 AI WorkHub. Данные синхронизированы с Supabase.</p>
     </footer>
 
     <!-- Модальное окно добавления сервиса -->
@@ -293,46 +134,141 @@
         <div class="glass-card w-full max-w-md rounded-2xl p-6 border border-slate-800 relative">
             <button onclick="toggleModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
             <h3 class="text-lg font-bold text-white mb-1">Предложить AI-инструмент</h3>
-            <p class="text-slate-400 text-xs mb-4">После модерации сервис будет добавлен в каталог.</p>
+            <p class="text-slate-400 text-xs mb-4">После модерации сервис появится в общем каталоге.</p>
             
-            <form onsubmit="handleSubmit(event)" class="space-y-3">
+            <form id="addToolForm" onsubmit="handleSubmit(event)" class="space-y-3">
                 <div>
                     <label class="block text-xs text-slate-300 mb-1">Название сервиса</label>
-                    <input required type="text" placeholder="например: Midjourney" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+                    <input id="formTitle" required type="text" placeholder="например: Claude 3.5" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-300 mb-1">Категория</label>
+                    <select id="formCategory" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+                        <option value="voice">🎙️ Голос и аудио</option>
+                        <option value="docs">📊 Презентации и тексты</option>
+                        <option value="design">🎨 Визуал и фото</option>
+                        <option value="code">💻 Код и разработка</option>
+                        <option value="search">🔎 Поиск и аналитика</option>
+                    </select>
                 </div>
                 <div>
                     <label class="block text-xs text-slate-300 mb-1">Ссылка на сайт</label>
-                    <input required type="url" placeholder="https://..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+                    <input id="formUrl" required type="url" placeholder="https://..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
                 </div>
                 <div>
-                    <label class="block text-xs text-slate-300 mb-1">Для какой задачи подходит?</label>
-                    <textarea required rows="2" placeholder="Краткое описание функционала" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500"></textarea>
+                    <label class="block text-xs text-slate-300 mb-1">Краткое описание функционала</label>
+                    <textarea id="formDesc" required rows="2" placeholder="Для чего этот сервис и как он помогает в работе?" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500"></textarea>
                 </div>
-                <button type="submit" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition">
+                <button type="submit" id="submitBtn" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition disabled:opacity-50">
                     Отправить на модерацию
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Интерактивная логика (Поиск + Категории) -->
+    <!-- Интеграция с Supabase -->
     <script>
+        // ВСТАВЬТЕ СЮДА ВАШ URL ИЗ SUPABASE:
+        const SUPABASE_URL = "https://ВАШ_ПРОЕКТ.supabase.co";
+        // Ваш ключ из запроса:
+        const SUPABASE_KEY = "sb_publishable_YHsJtW3rAEN3QTXaW7lxDA_5TS47IFr";
+
+        // Инициализация клиента Supabase
+        const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let allTools = [];
         let currentCategory = 'all';
 
-        function toggleModal() {
-            document.getElementById('modal').classList.toggle('hidden');
+        // 1. Загрузка инструментов из базы данных
+        async function fetchTools() {
+            try {
+                const { data, error } = await db
+                    .from('tools')
+                    .select('*')
+                    .order('id', { ascending: true });
+
+                if (error) throw error;
+
+                allTools = data || [];
+                renderTools(allTools);
+            } catch (err) {
+                console.error('Ошибка загрузки данных:', err);
+                document.getElementById('toolsGrid').innerHTML = `
+                    <div class="col-span-full text-center py-10 text-red-400 text-xs">
+                        Не удалось загрузить сервисы. Проверьте SUPABASE_URL и статус проекта.
+                    </div>
+                `;
+            }
         }
 
-        function handleSubmit(e) {
-            e.preventDefault();
-            alert('Заявка принята! Инструмент будет добавлен после проверки.');
-            toggleModal();
+        // 2. Отрисовка карточек
+        function renderTools(tools) {
+            const container = document.getElementById('toolsGrid');
+            if (tools.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500 text-xs">Инструментов не найдено</div>`;
+                return;
+            }
+
+            container.innerHTML = tools.map(item => {
+                const tagsHtml = (item.tags || []).map(t => 
+                    `<span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">${t}</span>`
+                ).join('');
+
+                const badgeHtml = item.badge 
+                    ? `<span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">${item.badge}</span>` 
+                    : '';
+
+                return `
+                <div class="glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300">
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-xl font-bold text-white shadow-md">
+                                    ${item.icon_text || '⚡'}
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base text-white flex items-center gap-2">
+                                        ${item.title}
+                                        ${badgeHtml}
+                                    </h3>
+                                    <p class="text-slate-400 text-xs">${item.subtitle || ''}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                            ${item.description}
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            ${tagsHtml}
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-emerald-400">${item.price || 'Бесплатно'}</span>
+                        <a href="${item.url}" target="_blank" rel="nofollow noopener" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
+                            Попробовать →
+                        </a>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // 3. Фильтрация и поиск
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+
+            const filtered = allTools.filter(tool => {
+                const searchString = `${tool.title} ${tool.subtitle || ''} ${tool.description} ${(tool.tags || []).join(' ')}`.toLowerCase();
+                const matchesSearch = !query || searchString.includes(query);
+                const matchesCat = currentCategory === 'all' || tool.category === currentCategory;
+                return matchesSearch && matchesCat;
+            });
+
+            renderTools(filtered);
         }
 
         function setCategory(cat) {
             currentCategory = cat;
-            
-            // Смена активного чипа
             document.querySelectorAll('.chip').forEach(btn => {
                 if (btn.getAttribute('data-cat') === cat) {
                     btn.classList.remove('bg-slate-900', 'text-slate-400');
@@ -342,28 +278,44 @@
                     btn.classList.add('bg-slate-900', 'text-slate-400');
                 }
             });
-
-            filterTools();
+            applyFilters();
         }
 
-        function filterTools() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.tool-card');
+        // 4. Отправка новой заявки в базу Supabase
+        async function handleSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = 'Отправка...';
 
-            cards.forEach(card => {
-                const title = card.getAttribute('data-title').toLowerCase();
-                const cat = card.getAttribute('data-cat');
+            const payload = {
+                title: document.getElementById('formTitle').value,
+                category: document.getElementById('formCategory').value,
+                url: document.getElementById('formUrl').value,
+                description: document.getElementById('formDesc').value,
+                is_approved: false // ожидает одобрения в Supabase Dashboard
+            };
 
-                const matchesSearch = title.includes(query);
-                const matchesCat = currentCategory === 'all' || cat === currentCategory;
+            const { error } = await db.from('tools').insert([payload]);
 
-                if (matchesSearch && matchesCat) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            btn.disabled = false;
+            btn.innerText = 'Отправить на модерацию';
+
+            if (error) {
+                alert('Ошибка при сохранении: ' + error.message);
+            } else {
+                alert('Спасибо! Инструмент отправлен на модерацию.');
+                document.getElementById('addToolForm').reset();
+                toggleModal();
+            }
         }
+
+        function toggleModal() {
+            document.getElementById('modal').classList.toggle('hidden');
+        }
+
+        // Старт загрузки при загрузке документа
+        window.addEventListener('DOMContentLoaded', fetchTools);
     </script>
 </body>
 </html>
