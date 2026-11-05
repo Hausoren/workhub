@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI WorkHub — Каталог лучших нейросетей для работы и бизнеса</title>
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN для стилизации без сборщиков -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Подключаем официальную библиотеку Supabase JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -18,6 +16,11 @@
                             bg: '#090d16',
                             card: '#111827',
                             border: 'rgba(255, 255, 255, 0.08)'
+                        },
+                        neon: {
+                            blue: '#38bdf8',
+                            emerald: '#10b981',
+                            purple: '#a855f7'
                         }
                     }
                 }
@@ -70,7 +73,7 @@
         <section class="max-w-4xl mx-auto px-4 pt-14 pb-10 text-center">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-6">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                База данных подключена в реальном времени
+                Только проверенные сервисы для ускорения работы
             </div>
             <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
                 Нейросети, которые делают <br>
@@ -87,7 +90,7 @@
                        class="w-full h-12 bg-slate-900/90 rounded-2xl pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 border border-white/10 shadow-xl transition">
             </div>
 
-            <!-- Категории -->
+            <!-- Быстрые фильтры по категориям -->
             <div class="flex flex-wrap justify-center gap-2" id="categoryChips">
                 <button onclick="setCategory('all')" class="chip active px-3.5 py-1.5 rounded-xl text-xs font-semibold transition border border-white/10 bg-sky-500 text-white" data-cat="all">Все</button>
                 <button onclick="setCategory('voice')" class="chip px-3.5 py-1.5 rounded-xl text-xs font-semibold transition border border-white/10 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800" data-cat="voice">🎙️ Голос и аудио</button>
@@ -98,17 +101,173 @@
             </div>
         </section>
 
-        <!-- Сетка карточек (динамическая загрузка из Supabase) -->
+        <!-- Сетка карточек нейросетей -->
         <section class="max-w-6xl mx-auto px-4 pb-20">
             <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Сюда JavaScript автоматически загрузит карточки из базы -->
-                <div class="col-span-full text-center py-12 text-slate-500 text-sm">
-                    Загрузка инструментов из базы данных...
+
+                <!-- Карточка 1: ElevenLabs -->
+                <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="voice" data-title="ElevenLabs озвучка клонирование голоса аудио">
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-xl font-bold text-white shadow-md">
+                                    11
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base text-white flex items-center gap-2">
+                                        ElevenLabs
+                                        <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">ТОП ВЫБОР</span>
+                                    </h3>
+                                    <p class="text-slate-400 text-xs">Генерация голоса и дубляж</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                            Самый реалистичный ИИ-голос в мире. Умеет клонировать голос по 1 минуте аудиозаписи, озвучивать видео на 30 языках с сохранением тембра и эмоций.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Клонирование</span>
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Дубляж видео</span>
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Русский язык</span>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-emerald-400">Бесплатно / от $5</span>
+                        <!-- Сюда вставляется ваша партнерская ссылка -->
+                        <a href="https://elevenlabs.io" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
+                            Попробовать →
+                        </a>
+                    </div>
                 </div>
+
+                <!-- Карточка 2: Gamma App -->
+                <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="docs" data-title="Gamma App презентации слайды документы">
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-xl font-bold text-white shadow-md">
+                                    Г
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base text-white">Gamma App</h3>
+                                    <p class="text-slate-400 text-xs">Генератор презентаций</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                            Создает готовую интерактивную презентацию со структурой, текстами и картинками за 30 секунд по простому запросу или готовому документу.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">PowerPoint замена</span>
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Слайды</span>
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Экспорт в PDF</span>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-emerald-400">Бесплатный тариф</span>
+                        <a href="https://gamma.app" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
+                            Попробовать →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 3: Leonardo.ai -->
+                <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="design" data-title="Leonardo ai визуал картинки графика фото маркетплейсы">
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-fuchsia-500 to-cyan-500 flex items-center justify-center text-xl font-bold text-white shadow-md">
+                                    L
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base text-white">Leonardo.ai</h3>
+                                    <p class="text-slate-400 text-xs">Генератор изображений и артов</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                            Главный конкурент Midjourney с удобным веб-интерфейсом. Отлично подходит для создания товарных карточек, иконок сайтов и фотосессий без фотографа.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">150 токенов/день</span>
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Веб-панель</span>
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Upscale 4K</span>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-emerald-400">Бесплатно 150/день</span>
+                        <a href="https://leonardo.ai" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
+                            Попробовать →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 4: Cursor AI -->
+                <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="code" data-title="Cursor ai программирование код разработка сайты">
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-xl font-bold text-white shadow-md border border-slate-600">
+                                    &gt;_
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base text-white">Cursor AI</h3>
+                                    <p class="text-slate-400 text-xs">Умный редактор кода</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                            Форк VS Code со встроенным пониманием всего проекта. Сам находит баги, дописывает код по нажатию Tab и создает веб-приложения по текстовому описанию.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Автокод</span>
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Поддержка Claude 3.5</span>
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Бесплатный план</span>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-emerald-400">Бесплатный триал</span>
+                        <a href="https://cursor.com" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
+                            Попробовать →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Карточка 5: Perplexity AI -->
+                <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="search" data-title="Perplexity ai поиск аналитика статьи ссылки факты">
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-700 flex items-center justify-center text-xl font-bold text-white shadow-md">
+                                    ✳
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base text-white">Perplexity AI</h3>
+                                    <p class="text-slate-400 text-xs">Поисковик нового поколения</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                            Замена Google для фактчекинга и исследований. Отвечает развернутым ответом с точными ссылками на первоисточники без рекламного мусора.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">С первоисточниками</span>
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Без рекламы</span>
+                            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">Актуально 2026</span>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-emerald-400">Бесплатно без лимита</span>
+                        <a href="https://perplexity.ai" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
+                            Попробовать →
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- Блок монетизации -->
+        <!-- Блок монетизации: Платное размещение для авторов инструментов -->
         <section class="max-w-4xl mx-auto px-4 pb-20">
             <div class="glass-card border border-sky-500/20 rounded-3xl p-8 text-center relative overflow-hidden">
                 <div class="w-40 h-40 bg-sky-500/10 rounded-full blur-2xl absolute -top-10 -left-10 pointer-events-none"></div>
@@ -134,20 +293,20 @@
         <div class="glass-card w-full max-w-md rounded-2xl p-6 border border-slate-800 relative">
             <button onclick="toggleModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
             <h3 class="text-lg font-bold text-white mb-1">Предложить AI-инструмент</h3>
-            <p class="text-slate-400 text-xs mb-4">После модерации сервис появится в каталоге.</p>
+            <p class="text-slate-400 text-xs mb-4">После модерации сервис будет добавлен в каталог.</p>
             
             <form onsubmit="handleSubmit(event)" class="space-y-3">
                 <div>
                     <label class="block text-xs text-slate-300 mb-1">Название сервиса</label>
-                    <input required id="toolTitle" type="text" placeholder="например: Midjourney" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+                    <input required type="text" placeholder="например: Midjourney" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
                 </div>
                 <div>
                     <label class="block text-xs text-slate-300 mb-1">Ссылка на сайт</label>
-                    <input required id="toolUrl" type="url" placeholder="https://..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+                    <input required type="url" placeholder="https://..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
                 </div>
                 <div>
                     <label class="block text-xs text-slate-300 mb-1">Для какой задачи подходит?</label>
-                    <textarea required id="toolDesc" rows="2" placeholder="Краткое описание функционала" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500"></textarea>
+                    <textarea required rows="2" placeholder="Краткое описание функционала" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500"></textarea>
                 </div>
                 <button type="submit" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition">
                     Отправить на модерацию
@@ -156,130 +315,24 @@
         </div>
     </div>
 
-
-    <!-- Логика работы с Supabase и интерфейсом -->
+    <!-- Интерактивная логика (Поиск + Категории) -->
     <script>
-        // Официальная инициализация Supabase для CDN
-        const SUPABASE_URL = 'https://jncyvopdxarwtqtnmfwh.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_YHsJtW3rAEN3QTXaW7lxDA_5TS47IFr';
-        
-        // Исправлено: используем глобальный объект supabase напрямую
-        const { createClient } = supabase;
-        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        let allTools = [];
         let currentCategory = 'all';
-
-        // Загрузка данных при открытии страницы
-        window.addEventListener('DOMContentLoaded', () => {
-            fetchTools();
-        });
-
-        // Загрузка данных из базы
-        async function fetchTools() {
-            const grid = document.getElementById('toolsGrid');
-
-            try {
-                const { data, error } = await supabaseClient
-                    .from('tools')
-                    .select('*')
-                    .eq('is_approved', true)
-                    .order('is_featured', { ascending: false });
-
-                if (error) throw error;
-
-                allTools = data || [];
-                renderTools(allTools);
-            } catch (err) {
-                console.error('Ошибка загрузки:', err);
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-red-400 text-xs">Ошибка загрузки базы данных: ${err.message}</div>`;
-            }
-        }
-
-        // Отрисовка карточек
-        function renderTools(tools) {
-            const grid = document.getElementById('toolsGrid');
-            if (!tools || tools.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500 text-sm">Инструменты не найдены.</div>`;
-                return;
-            }
-
-            grid.innerHTML = tools.map(tool => {
-                const tagsHtml = tool.tags ? tool.tags.map(t => `<span class="text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-400">${t}</span>`).join('') : '';
-                const featuredBadge = tool.is_featured ? `<span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">ТОП ВЫБОР</span>` : '';
-                const initial = tool.title ? tool.title.charAt(0) : 'AI';
-                
-                return `
-                    <div class="tool-card glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300" data-cat="${tool.category || 'other'}" data-title="${(tool.title || '').toLowerCase()} ${(tool.description || '').toLowerCase()}">
-                        <div>
-                            <div class="flex items-start justify-between gap-3 mb-3">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center text-xl font-bold text-white shadow-md">
-                                        ${initial}
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold text-base text-white flex items-center gap-2">
-                                            ${tool.title}
-                                            ${featuredBadge}
-                                        </h3>
-                                        <p class="text-slate-400 text-xs">${tool.category ? tool.category.toUpperCase() : 'СЕРВИС'}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-slate-300 text-xs leading-relaxed mb-4">
-                                ${tool.description || ''}
-                            </p>
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                ${tagsHtml}
-                            </div>
-                        </div>
-                        <div class="pt-3 border-t border-white/5 flex items-center justify-between">
-                            <span class="text-xs font-semibold text-emerald-400">${tool.price_info || 'Бесплатно'}</span>
-                            <a href="${tool.url}" target="_blank" rel="nofollow" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
-                                Попробовать →
-                            </a>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // Отправка новой заявки из модального окна в Supabase
-        async function handleSubmit(e) {
-            e.preventDefault();
-            const title = document.getElementById('toolTitle').value;
-            const url = document.getElementById('toolUrl').value;
-            const description = document.getElementById('toolDesc').value;
-
-            try {
-                const { error } = await supabaseClient
-                    .from('tools')
-                    .insert([{ 
-                        title: title, 
-                        url: url, 
-                        description: description, 
-                        category: 'other', 
-                        price_info: 'По запросу',
-                        is_approved: false 
-                    }]);
-
-                if (error) throw error;
-
-                alert('Спасибо! Ваша заявка отправлена на модерацию.');
-                toggleModal();
-                e.target.reset();
-                fetchTools(); // Обновляем список (если разрешено автором)
-            } catch (err) {
-                alert('Ошибка отправки: ' + err.message);
-            }
-        }
 
         function toggleModal() {
             document.getElementById('modal').classList.toggle('hidden');
         }
 
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Заявка принята! Инструмент будет добавлен после проверки.');
+            toggleModal();
+        }
+
         function setCategory(cat) {
             currentCategory = cat;
+            
+            // Смена активного чипа
             document.querySelectorAll('.chip').forEach(btn => {
                 if (btn.getAttribute('data-cat') === cat) {
                     btn.classList.remove('bg-slate-900', 'text-slate-400');
@@ -289,18 +342,27 @@
                     btn.classList.add('bg-slate-900', 'text-slate-400');
                 }
             });
+
             filterTools();
         }
 
         function filterTools() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allTools.filter(tool => {
-                const text = `${tool.title || ''} ${tool.description || ''} ${(tool.tags || []).join(' ')}`.toLowerCase();
-                const matchesSearch = text.includes(query);
-                const matchesCat = currentCategory === 'all' || tool.category === currentCategory;
-                return matchesSearch && matchesCat;
+            const cards = document.querySelectorAll('.tool-card');
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const cat = card.getAttribute('data-cat');
+
+                const matchesSearch = title.includes(query);
+                const matchesCat = currentCategory === 'all' || cat === currentCategory;
+
+                if (matchesSearch && matchesCat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
             });
-            renderTools(filtered);
         }
     </script>
 </body>
