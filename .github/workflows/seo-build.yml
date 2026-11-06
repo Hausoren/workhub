@@ -1,17 +1,20 @@
 name: Generate SEO Pages & Ping IndexNow
 
 on:
-  workflow_dispatch: # Позволяет запускать кнопкой вручную
+  workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *' # Автозапуск каждые 6 часов для новых постов из Telegram-бота
+    - cron: '0 */6 * * *'
   push:
-    branches: [ main ]
+    branches: [ main, master ]
     paths:
       - 'index.html'
-      - 'generate-seo.mjs'
+      - '**/generate-seo.mjs'
 
 permissions:
   contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-seo:
@@ -20,21 +23,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Supabase client
-        run: npm install --no-save @supabase/supabase-js
-
       - name: Generate HTML pages, Sitemap & Ping IndexNow
-        run: node generate-seo.mjs
+        run: |
+          SCRIPT_PATH=$(find . -name "generate-seo.mjs" | head -n 1)
+          if [ -z "$SCRIPT_PATH" ]; then
+            echo "Ошибка: файл generate-seo.mjs не найден в репозитории!"
+            exit 1
+          fi
+          echo "Запускаем: $SCRIPT_PATH"
+          node "$SCRIPT_PATH"
 
       - name: Commit and Push generated SEO pages
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add tool/ sitemap.xml robots.txt aiworkhub2026indexnowkey777.txt
-          git diff --staged --quiet || git commit -m "Auto-update SEO pages and sitemap"
-          git push
+          if ! git diff --staged --quiet; then
+            git commit -m "Auto-update SEO pages and sitemap"
+            git pull --rebase origin HEAD
+            git push origin HEAD
+          else
+            echo "Новых изменений нет, всё актуально."
+          fi
