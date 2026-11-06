@@ -1,14 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import { createClient } from '@supabase/supabase-js';
 
 const SITE_URL = 'https://workhub-mv5.pages.dev';
 const INDEXNOW_KEY = 'aiworkhub2026indexnowkey777';
 
 const SUPABASE_URL = 'https://jncyvopdxarwtqtnmfwh.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_YHsJtW3rAEN3QTXaW7lxDA_5TS47IFr';
-
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 function escapeHtml(str = '') {
     return String(str)
@@ -28,23 +25,28 @@ function makeSlug(title, id) {
 
 async function run() {
     console.log('1. Загружаем одобренные нейросети из Supabase...');
-    const { data: tools, error } = await db
-        .from('tools')
-        .select('*')
-        .eq('is_approved', true)
-        .order('id', { ascending: true });
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/tools?select=*&order=id.asc`, {
+        headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+    });
 
-    if (error) {
-        console.error('Ошибка чтения Supabase:', error);
+    if (!response.ok) {
+        const errText = await response.text();
+        console.error('Ошибка чтения Supabase:', response.status, errText);
         process.exit(1);
     }
+
+    const allData = await response.json();
+    const tools = (allData || []).filter(t => t.is_approved !== false);
 
     console.log(`Найдено сервисов: ${tools.length}`);
 
     const urls = [`${SITE_URL}/`];
 
     // 2. Создаём ключевой файл для верификации IndexNow
-    fs.writeFileSync( `${INDEXNOW_KEY}.txt`, INDEXNOW_KEY, 'utf8');
+    fs.writeFileSync(`${INDEXNOW_KEY}.txt`, INDEXNOW_KEY, 'utf8');
 
     // 3. Генерируем отдельную HTML-страницу для каждой нейросети
     for (const tool of tools) {
