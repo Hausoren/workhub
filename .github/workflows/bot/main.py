@@ -16,7 +16,9 @@ SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://jncyvopdxarwtqtnmfwh.supa
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "sb_publishable_YHsJtW3rAEN3QTXaW7lxDA_5TS47IFr")
 
 db = create_client(SUPABASE_URL, SUPABASE_KEY)
-genai.configure(api_key=GEMINI_API_KEY)
+# Инициализация Gemini API
+api_key_to_use = os.environ.get("GOOGLE_API_KEY") or GEMINI_API_KEY
+genai.configure(api_key=api_key_to_use)
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
