@@ -10,7 +10,7 @@ import google.generativeai as genai
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 # Конфигурация
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "9143813888:AAFdZpBU6_buGm7UoUEblrHiyEB1EqoWFzY")
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://jncyvopdxarwtqtnmfwh.supabase.co")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "sb_publishable_YHsJtW3rAEN3QTXaW7lxDA_5TS47IFr")
