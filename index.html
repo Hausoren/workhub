@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI WorkHub — Каталог лучших нейросетей для работы и бизнеса</title>
+    <title>AI WorkHub — Каталог лучших нейросетей 2026: обзоры, инструкции и аналоги</title>
+    <meta name="description" content="Практичный каталог проверенных нейросетей для работы, бизнеса, кода, дизайна и видео. Честные обзоры, плюсы и минусы, бесплатные тарифы и видеоинструкции.">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph для красивых ссылок в Telegram и соцсетях -->
+    <meta property="og:title" content="AI WorkHub — Каталог лучших нейросетей 2026">
+    <meta property="og:description" content="50+ проверенных ИИ-инструментов для дизайна, кода, озвучки и работы с документами. Экономьте до 20 часов в неделю.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://workhub-mv5.pages.dev/">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Supabase JS Client -->
@@ -47,7 +56,7 @@
     <!-- Header -->
     <header class="sticky top-0 z-40 bg-[#090d16]/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="location.reload()">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href = window.location.pathname">
                 <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-400 to-indigo-600 flex items-center justify-center font-black text-white shadow-lg shadow-sky-500/20">
                     ⚡
                 </div>
@@ -70,20 +79,20 @@
         <section class="max-w-4xl mx-auto px-4 pt-14 pb-10 text-center">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-6">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                Только проверенные сервисы для ускорения работы
+                Обзоры, инструкции и видеоразборы нейросетей
             </div>
             <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
                 Нейросети, которые делают <br>
                 <span class="bg-gradient-to-r from-sky-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">работу за вас</span>
             </h1>
             <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto mb-8">
-                Каталог практичных инструментов для маркетинга, дизайна, кода и документов. Экономьте до 20 часов в неделю.
+                Каталог практичных ИИ-инструментов для маркетинга, дизайна, кода и видео. Честные разборы, плюсы, минусы и короткие гайды.
             </p>
 
             <!-- Поиск -->
             <div class="max-w-xl mx-auto relative mb-6">
                 <span class="absolute left-4 top-3.5 text-slate-500">🔍</span>
-                <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Поиск по названию или задаче (голос, код, презентация...)" 
+                <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Поиск по названию или задаче (голос, код, презентация, видео...)" 
                        class="w-full h-12 bg-slate-900/90 rounded-2xl pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 border border-white/10 shadow-xl transition">
             </div>
 
@@ -92,7 +101,7 @@
                 <button onclick="setCategory('all')" class="chip active px-3.5 py-1.5 rounded-xl text-xs font-semibold transition border border-white/10 bg-sky-500 text-white" data-cat="all">Все</button>
                 <button onclick="setCategory('voice')" class="chip px-3.5 py-1.5 rounded-xl text-xs font-semibold transition border border-white/10 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800" data-cat="voice">🎙️ Голос и аудио</button>
                 <button onclick="setCategory('docs')" class="chip px-3.5 py-1.5 rounded-xl text-xs font-semibold transition border border-white/10 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800" data-cat="docs">📊 Презентации и тексты</button>
-                <button onclick="setCategory('design')" class="chip px-3.5 py-1.5 rounded-xl text-xs font-semibold transition border border-white/10 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800" data-cat="design">🎨 Визуал и фото</button>
+                <button onclick="setCategory('design')" class="chip px-3.5 py-1.5 rounded-xl text-xs font-semibold transition border border-white/10 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800" data-cat="design">🎨 Визуал и видео</button>
                 <button onclick="setCategory('code')" class="chip px-3.5 py-1.5 rounded-xl text-xs font-semibold transition border border-white/10 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800" data-cat="code">💻 Код и разработка</button>
                 <button onclick="setCategory('search')" class="chip px-3.5 py-1.5 rounded-xl text-xs font-semibold transition border border-white/10 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800" data-cat="search">🔎 Поиск и аналитика</button>
             </div>
@@ -102,7 +111,7 @@
         <section class="max-w-6xl mx-auto px-4 pb-20">
             <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="col-span-full text-center py-12 text-slate-500 text-sm animate-pulse">
-                    Загрузка каталога из Supabase...
+                    Загрузка каталога нейросетей...
                 </div>
             </div>
         </section>
@@ -114,7 +123,7 @@
                 <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">Для разработчиков ИИ</span>
                 <h2 class="text-2xl md:text-3xl font-extrabold text-white mt-3 mb-2">Создали свой AI-сервис или Telegram-бота?</h2>
                 <p class="text-slate-400 text-xs md:text-sm max-w-lg mx-auto mb-6">
-                    Разместите свой инструмент в топе каталога с персональным обзором и прямой ссылкой на ваш сайт.
+                    Разместите свой инструмент в топе каталога с подробным обзором, видео в TikTok и прямой ссылкой на ваш продукт.
                 </p>
                 <button onclick="toggleModal()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:opacity-95 text-slate-950 font-bold text-xs shadow-lg shadow-sky-500/20 transition">
                     Подать заявку на размещение
@@ -125,27 +134,35 @@
 
     <!-- Footer -->
     <footer class="border-t border-white/5 py-8 text-center text-xs text-slate-600">
-        <p>© 2026 AI WorkHub. Данные синхронизированы с базой данных Supabase.</p>
+        <p>© 2026 AI WorkHub — Каталог и обзоры нейросетей.</p>
     </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО ПОЛНОГО ОБЗОРА НЕЙРОСЕТИ (СТАТЬЯ) -->
+    <div id="reviewModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto" onclick="if(event.target === this) closeReview()">
+        <div class="glass-card w-full max-w-2xl rounded-3xl p-6 md:p-8 border border-white/10 relative my-8 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeReview()" class="sticky top-0 float-right w-8 h-8 rounded-full bg-slate-800/80 text-slate-400 hover:text-white flex items-center justify-center">✕</button>
+            <div id="reviewContent"></div>
+        </div>
+    </div>
 
     <!-- Модальное окно добавления сервиса -->
     <div id="modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="glass-card w-full max-w-md rounded-2xl p-6 border border-slate-800 relative">
             <button onclick="toggleModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
             <h3 class="text-lg font-bold text-white mb-1">Предложить AI-инструмент</h3>
-            <p class="text-slate-400 text-xs mb-4">После модерации сервис будет добавлен в каталог.</p>
+            <p class="text-slate-400 text-xs mb-4">После модерации администратором в Telegram сервис появится в каталоге.</p>
             
             <form id="addToolForm" onsubmit="handleSubmit(event)" class="space-y-3">
                 <div>
                     <label class="block text-xs text-slate-300 mb-1">Название сервиса</label>
-                    <input id="formTitle" required type="text" placeholder="например: Claude 3.5" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+                    <input id="formTitle" required type="text" placeholder="например: Claude 3.7" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
                 </div>
                 <div>
                     <label class="block text-xs text-slate-300 mb-1">Категория</label>
                     <select id="formCategory" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
                         <option value="voice">🎙️ Голос и аудио</option>
                         <option value="docs">📊 Презентации и тексты</option>
-                        <option value="design">🎨 Визуал и фото</option>
+                        <option value="design">🎨 Визуал и видео</option>
                         <option value="code">💻 Код и разработка</option>
                         <option value="search">🔎 Поиск и аналитика</option>
                     </select>
@@ -165,44 +182,42 @@
         </div>
     </div>
 
-    <!-- Полная логика работы с вашей базой Supabase -->
     <script>
-        // Ваши реальные параметры проекта (всё уже вставлено):
         const SUPABASE_URL = "https://jncyvopdxarwtqtnmfwh.supabase.co";
         const SUPABASE_KEY = "sb_publishable_YHsJtW3rAEN3QTXaW7lxDA_5TS47IFr";
 
-        // Инициализация подключения
         const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let allTools = [];
         let currentCategory = 'all';
 
-        // 1. Загрузка данных из вашей таблицы tools
+        // 1. Загрузка только ОДОБРЕННЫХ сервисов
         async function fetchTools() {
             const grid = document.getElementById('toolsGrid');
             try {
                 const { data, error } = await db
                     .from('tools')
                     .select('*')
-                    .order('id', { ascending: true });
+                    .eq('is_approved', true)
+                    .order('id', { ascending: false });
 
                 if (error) throw error;
 
                 allTools = data || [];
                 renderTools(allTools);
+                checkUrlForTool();
             } catch (err) {
                 console.error('Ошибка Supabase:', err);
                 grid.innerHTML = `
                     <div class="col-span-full text-center py-10 bg-red-500/10 border border-red-500/20 rounded-2xl p-6">
                         <p class="text-red-400 font-bold mb-1">Ошибка связи с базой данных</p>
-                        <p class="text-[12px] font-mono text-slate-300 bg-black/40 p-2 rounded max-w-lg mx-auto mb-2">${err.message || err}</p>
-                        <p class="text-[11px] text-slate-400">Убедитесь, что вы запустили SQL-скрипт создания таблицы в панели Supabase.</p>
+                        <p class="text-[12px] font-mono text-slate-300 bg-black/40 p-2 rounded max-w-lg mx-auto">${err.message || err}</p>
                     </div>
                 `;
             }
         }
 
-        // 2. Отрисовка полученных карточек
+        // 2. Отрисовка карточек
         function renderTools(tools) {
             const container = document.getElementById('toolsGrid');
             if (tools.length === 0) {
@@ -219,16 +234,24 @@
                     ? `<span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">${item.badge}</span>` 
                     : '';
 
+                const tiktokBadge = item.tiktok_url
+                    ? `<a href="${item.tiktok_url}" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="inline-flex items-center gap-1 text-[11px] font-semibold text-pink-400 bg-pink-500/10 border border-pink-500/20 px-2.5 py-1 rounded-lg hover:bg-pink-500/20 transition mb-3">
+                        🎬 Видеообзор в TikTok
+                       </a>`
+                    : '';
+
+                const slugOrId = item.slug || item.id;
+
                 return `
-                <div class="glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300">
+                <article onclick="openReview('${slugOrId}')" class="glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 cursor-pointer group">
                     <div>
                         <div class="flex items-start justify-between gap-3 mb-3">
                             <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-xl font-bold text-white shadow-md">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-xl font-bold text-white shadow-md shrink-0">
                                     ${item.icon_text || '⚡'}
                                 </div>
                                 <div>
-                                    <h3 class="font-bold text-base text-white flex items-center gap-2">
+                                    <h3 class="font-bold text-base text-white group-hover:text-sky-400 transition flex items-center flex-wrap gap-2">
                                         ${item.title}
                                         ${badgeHtml}
                                     </h3>
@@ -236,6 +259,7 @@
                                 </div>
                             </div>
                         </div>
+                        ${tiktokBadge}
                         <p class="text-slate-300 text-xs leading-relaxed mb-4">
                             ${item.description}
                         </p>
@@ -243,18 +267,102 @@
                             ${tagsHtml}
                         </div>
                     </div>
-                    <div class="pt-3 border-t border-white/5 flex items-center justify-between">
+                    <div class="pt-3 border-t border-white/5 flex items-center justify-between gap-2">
                         <span class="text-xs font-semibold text-emerald-400">${item.price || 'Бесплатно'}</span>
-                        <a href="${item.url}" target="_blank" rel="nofollow noopener" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
-                            Попробовать →
-                        </a>
+                        <div class="flex items-center gap-2">
+                            <button onclick="event.stopPropagation(); openReview('${slugOrId}')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition">
+                                Обзор
+                            </button>
+                            <a href="${item.url}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()" class="px-3.5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition active:scale-95">
+                                Сайт →
+                            </a>
+                        </div>
                     </div>
-                </div>
+                </article>
                 `;
             }).join('');
         }
 
-        // 3. Живой поиск и фильтрация по кнопкам
+        // 3. Открытие полной статьи-обзора
+        function openReview(slugOrId) {
+            const tool = allTools.find(t => t.slug === slugOrId || String(t.id) === String(slugOrId));
+            if (!tool) return;
+
+            // Меняем URL и Title для SEO и удобного шеринга ссылки
+            const param = tool.slug || tool.id;
+            window.history.pushState({}, '', `?tool=${param}`);
+            document.title = `${tool.title} — обзор, плюсы и как пользоваться | AI WorkHub`;
+
+            const prosHtml = (tool.pros && tool.pros.length) 
+                ? tool.pros.map(p => `<li class="text-xs text-slate-300 flex items-start gap-2"><span class="text-emerald-400">✔</span> ${p}</li>`).join('')
+                : `<li class="text-xs text-slate-300 flex items-start gap-2"><span class="text-emerald-400">✔</span> Высокая скорость и автоматизация рутинных задач</li>
+                   <li class="text-xs text-slate-300 flex items-start gap-2"><span class="text-emerald-400">✔</span> Доступен тестовый или бесплатный режим (${tool.price || 'Бесплатно'})</li>`;
+
+            const consHtml = (tool.cons && tool.cons.length)
+                ? tool.cons.map(c => `<li class="text-xs text-slate-300 flex items-start gap-2"><span class="text-rose-400">✕</span> ${c}</li>`).join('')
+                : `<li class="text-xs text-slate-300 flex items-start gap-2"><span class="text-rose-400">✕</span> Продвинутые функции могут требовать PRO-подписку</li>`;
+
+            const fullText = tool.full_review 
+                ? tool.full_review.replace(/\n/g, '<br>') 
+                : `${tool.description}<br><br>Сервис <b>${tool.title}</b> (${tool.subtitle || 'ИИ-инструмент'}) входит в подборку проверенных решений AI WorkHub. Отлично подходит для задач по направлениям: ${(tool.tags || []).join(', ')}.`;
+
+            const tiktokBtn = tool.tiktok_url
+                ? `<a href="${tool.tiktok_url}" target="_blank" rel="noopener" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 hover:opacity-90 text-white font-bold text-xs flex items-center justify-center gap-2 transition">
+                    🎬 Смотреть видеообзор в TikTok
+                   </a>`
+                : '';
+
+            document.getElementById('reviewContent').innerHTML = `
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-2xl font-bold text-white shadow-lg">
+                        ${tool.icon_text || '⚡'}
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-mono uppercase text-sky-400">${tool.price || 'Бесплатно'}</span>
+                        <h2 class="text-2xl font-black text-white">${tool.title}</h2>
+                        <p class="text-slate-400 text-sm">${tool.subtitle || ''}</p>
+                    </div>
+                </div>
+
+                <div class="prose prose-invert max-w-none text-sm text-slate-200 leading-relaxed mb-6 bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+                    ${fullText}
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-4">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">Плюсы и возможности</h4>
+                        <ul class="space-y-1.5">${prosHtml}</ul>
+                    </div>
+                    <div class="bg-rose-500/5 border border-rose-500/20 rounded-2xl p-4">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-rose-400 mb-2">Ограничения</h4>
+                        <ul class="space-y-1.5">${consHtml}</ul>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-white/10">
+                    ${tiktokBtn}
+                    <a href="${tool.url}" target="_blank" rel="nofollow noopener" class="w-full sm:w-auto flex-grow text-center px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs transition">
+                        Перейти на официальный сайт ${tool.title} →
+                    </a>
+                </div>
+            `;
+
+            document.getElementById('reviewModal').classList.remove('hidden');
+        }
+
+        function closeReview() {
+            document.getElementById('reviewModal').classList.add('hidden');
+            window.history.pushState({}, '', window.location.pathname);
+            document.title = 'AI WorkHub — Каталог лучших нейросетей 2026: обзоры, инструкции и аналоги';
+        }
+
+        function checkUrlForTool() {
+            const params = new URLSearchParams(window.location.search);
+            const toolParam = params.get('tool');
+            if (toolParam) openReview(toolParam);
+        }
+
+        // 4. Живой поиск и фильтрация
         function applyFilters() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
 
@@ -282,15 +390,19 @@
             applyFilters();
         }
 
-        // 4. Отправка формы напрямую в Supabase
+        // 5. Отправка заявки на модерацию
         async function handleSubmit(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
             btn.innerText = 'Отправка...';
 
+            const titleVal = document.getElementById('formTitle').value;
+            const slugVal = titleVal.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
             const payload = {
-                title: document.getElementById('formTitle').value,
+                title: titleVal,
+                slug: slugVal + '-' + Math.floor(Math.random() * 1000),
                 category: document.getElementById('formCategory').value,
                 url: document.getElementById('formUrl').value,
                 description: document.getElementById('formDesc').value,
@@ -305,7 +417,7 @@
             if (error) {
                 alert('Ошибка: ' + error.message);
             } else {
-                alert('Заявка успешно отправлена! Сервис появится в каталоге после проверки.');
+                alert('Заявка успешно отправлена! Сервис появится в каталоге после проверки модератором.');
                 document.getElementById('addToolForm').reset();
                 toggleModal();
             }
@@ -315,7 +427,6 @@
             document.getElementById('modal').classList.toggle('hidden');
         }
 
-        // Запуск при открытии страницы
         window.addEventListener('DOMContentLoaded', fetchTools);
     </script>
 </body>
